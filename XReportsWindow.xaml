@@ -1,0 +1,117 @@
+﻿<Page x:Class="AMONIC.ReportsWindow"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:oxy="http://oxyplot.org/wpf"
+      Title="Отчёты по опросам"
+      Background="#F5F5F5"
+      Loaded="Page_Loaded">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" 
+                   Text="Отчёты по опросам клиентов" 
+                   FontSize="22" 
+                   FontWeight="Bold"
+                   FontFamily="{StaticResource PrimaryFont}"
+                   Foreground="{StaticResource DarkBlueBrush}"
+                   Margin="0,0,0,20"/>
+
+        <!-- Панель фильтров -->
+        <Border Grid.Row="1" 
+                Background="White" 
+                CornerRadius="5"
+                BorderBrush="#DDD" 
+                BorderThickness="1"
+                Padding="15"
+                Margin="0,0,0,20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Фильтр по месяцам -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Период:" VerticalAlignment="Center" FontFamily="{StaticResource PrimaryFont}"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmbMonth" SelectionChanged="CmbMonth_SelectionChanged" FontFamily="{StaticResource SecondaryFont}"/>
+
+                <!-- Фильтр по полу -->
+                <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chkGender" Content="Фильтр по полу" VerticalAlignment="Center" Margin="10,0,0,0" FontFamily="{StaticResource SecondaryFont}"/>
+                <ComboBox Grid.Row="0" Grid.Column="3" x:Name="cmbGender" IsEnabled="False" FontFamily="{StaticResource SecondaryFont}" Margin="10,0,0,0">
+                    <ComboBoxItem Content="Мужской" Tag="M"/>
+                    <ComboBoxItem Content="Женский" Tag="F"/>
+                </ComboBox>
+
+                <!-- Фильтр по возрасту -->
+                <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chkAge" Content="Фильтр по возрасту" VerticalAlignment="Center" FontFamily="{StaticResource SecondaryFont}" Margin="0,10,0,0"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cmbAgeGroup" IsEnabled="False" FontFamily="{StaticResource SecondaryFont}" Margin="0,10,0,0">
+                    <ComboBoxItem Content="18-24" Tag="18-24"/>
+                    <ComboBoxItem Content="25-39" Tag="25-39"/>
+                    <ComboBoxItem Content="40-59" Tag="40-59"/>
+                    <ComboBoxItem Content="60+" Tag="60+"/>
+                </ComboBox>
+
+                <!-- Фильтр по типу билета -->
+                <CheckBox Grid.Row="1" Grid.Column="2" x:Name="chkCabinType" Content="Фильтр по классу" VerticalAlignment="Center" Margin="10,10,0,0" FontFamily="{StaticResource SecondaryFont}"/>
+                <ComboBox Grid.Row="1" Grid.Column="3" x:Name="cmbCabinType" IsEnabled="False" FontFamily="{StaticResource SecondaryFont}" Margin="10,10,0,0">
+                    <ComboBoxItem Content="Эконом" Tag="1"/>
+                    <ComboBoxItem Content="Бизнес" Tag="2"/>
+                    <ComboBoxItem Content="Первый" Tag="3"/>
+                </ComboBox>
+
+                <!-- Кнопки -->
+                <StackPanel Grid.Row="2" Grid.ColumnSpan="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+                    <Button x:Name="btnRefresh" Content="Обновить отчёт" Style="{StaticResource PrimaryButton}" Click="BtnRefresh_Click" Width="150"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Таблица сводного отчёта -->
+        <Border Grid.Row="2" 
+                Background="White" 
+                CornerRadius="5"
+                BorderBrush="#DDD" 
+                BorderThickness="1"
+                Padding="15">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Доступные месяцы -->
+                <TextBlock Grid.Row="0" Text="Доступные месяцы:" FontWeight="Bold" FontFamily="{StaticResource PrimaryFont}" Margin="0,0,0,10"/>
+                <TextBlock Grid.Row="1" x:Name="txtAvailableMonths" FontFamily="{StaticResource SecondaryFont}" Margin="0,0,0,15"/>
+
+                <!-- Размер выборки -->
+                <TextBlock Grid.Row="2" Text="Размер выборки (Sample Size):" FontWeight="Bold" FontFamily="{StaticResource PrimaryFont}" Margin="0,0,0,5"/>
+                <TextBlock Grid.Row="3" x:Name="txtSampleSize" FontFamily="{StaticResource SecondaryFont}" Margin="0,0,0,15"/>
+
+                <!-- Сводная таблица -->
+                <TextBlock Grid.Row="4" Text="Сводный отчёт по возрастным группам:" FontWeight="Bold" FontFamily="{StaticResource PrimaryFont}" Margin="0,0,0,10"/>
+                <DataGrid x:Name="dgSummary" 
+                          Grid.Row="5"
+                          AutoGenerateColumns="True"
+                          IsReadOnly="True"
+                          RowBackground="White"
+                          FontFamily="{StaticResource SecondaryFont}"
+                          BorderBrush="#DDD"
+                          RowHeight="35"
+                          MaxHeight="300"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

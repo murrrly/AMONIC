@@ -1,0 +1,136 @@
+﻿<Page x:Class="AMONIC.SchedulesManagement"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Управление расписанием рейсов"
+      Background="#F5F5F5">
+
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<TextBlock Grid.Row="0" 
+                   Text="Управление расписанием рейсов" 
+                   FontSize="22" 
+                   FontWeight="Bold"
+                   FontFamily="{StaticResource PrimaryFont}"
+                   Foreground="{StaticResource DarkBlueBrush}"
+                   Margin="0,0,0,20"/>
+
+		<Border Grid.Row="1" 
+                Background="White" 
+                CornerRadius="5"
+                BorderBrush="#DDD" 
+                BorderThickness="1"
+                Padding="15"
+                Margin="0,0,0,20">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="130"/>
+					<ColumnDefinition Width="1*"/>
+					<ColumnDefinition Width="40"/>
+					<ColumnDefinition Width="130"/>
+					<ColumnDefinition Width="1*"/>
+				</Grid.ColumnDefinitions>
+
+				<TextBlock Grid.Row="0" Grid.Column="0" Text="Аэропорт отпр.:" VerticalAlignment="Center" FontFamily="{StaticResource PrimaryFont}"/>
+				<ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmbDepartureAirport" DisplayMemberPath="Name" SelectedValuePath="ID" Margin="0,5" FontFamily="{StaticResource SecondaryFont}"/>
+
+				<TextBlock Grid.Row="0" Grid.Column="3" Text="Аэропорт приб.:" VerticalAlignment="Center" FontFamily="{StaticResource PrimaryFont}"/>
+				<ComboBox Grid.Row="0" Grid.Column="4" x:Name="cmbArrivalAirport" DisplayMemberPath="Name" SelectedValuePath="ID" Margin="0,5" FontFamily="{StaticResource SecondaryFont}"/>
+
+				<TextBlock Grid.Row="1" Grid.Column="0" Text="Дата отпр.:" VerticalAlignment="Center" FontFamily="{StaticResource PrimaryFont}" Margin="0,10,0,0"/>
+				<DatePicker Grid.Row="1" Grid.Column="1" x:Name="dpDateFrom" Margin="0,10,0,0" FontFamily="{StaticResource SecondaryFont}"/>
+
+				<TextBlock Grid.Row="1" Grid.Column="3" Text="по:" VerticalAlignment="Center" FontFamily="{StaticResource PrimaryFont}" Margin="0,10,0,0"/>
+				<DatePicker Grid.Row="1" Grid.Column="4" x:Name="dpDateTo" Margin="0,10,0,0" FontFamily="{StaticResource SecondaryFont}"/>
+
+				<TextBlock Grid.Row="2" Grid.Column="0" Text="Номер рейса:" VerticalAlignment="Center" FontFamily="{StaticResource PrimaryFont}" Margin="0,10,0,0"/>
+				<TextBox Grid.Row="2" Grid.Column="1" x:Name="txtFlightNumber" Margin="0,10,0,0" FontFamily="{StaticResource SecondaryFont}"/>
+
+				<Grid Grid.Row="3" Grid.ColumnSpan="5" Margin="0,20,0,0">
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+						<Button x:Name="btnSearch" Content="Поиск" Style="{StaticResource PrimaryButton}" Click="BtnSearch_Click" Width="120" Height="32"/>
+						<Button x:Name="btnResetSearch" Content="Сброс" Style="{StaticResource DangerButton}" Background="#D9534F" Foreground="White" Click="BtnResetSearch_Click" Width="120" Height="32" Margin="15,0,0,0"/>
+					</StackPanel>
+
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+						<TextBlock Text="Сортировка:" VerticalAlignment="Center" FontFamily="{StaticResource PrimaryFont}" Margin="0,0,10,0"/>
+						<ComboBox x:Name="cmbSortBy" Width="150" Height="28" SelectionChanged="CmbSortBy_SelectionChanged" FontFamily="{StaticResource SecondaryFont}">
+							<ComboBoxItem Content="Дата и время" Tag="DateTime" IsSelected="True"/>
+							<ComboBoxItem Content="Цена эконом" Tag="EconomyPrice"/>
+							<ComboBoxItem Content="Статус" Tag="Confirmed"/>
+						</ComboBox>
+					</StackPanel>
+				</Grid>
+			</Grid>
+		</Border>
+
+		<DataGrid x:Name="dgSchedules" 
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  SelectionMode="Single"
+                  IsReadOnly="True"
+                  FontFamily="{StaticResource SecondaryFont}"
+                  BorderBrush="#DDD"
+                  RowHeight="35">
+
+			<DataGrid.RowStyle>
+				<Style TargetType="DataGridRow">
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding IsCancelled}" Value="False">
+							<Setter Property="Background" Value="#E6FFE6"/>
+							<Setter Property="Foreground" Value="#000000"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding IsCancelled}" Value="True">
+							<Setter Property="Background" Value="#FFE6E6"/>
+							<Setter Property="Foreground" Value="#555555"/>
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</DataGrid.RowStyle>
+
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Дата" Binding="{Binding Date}" Width="100"/>
+				<DataGridTextColumn Header="Время" Binding="{Binding Time}" Width="80"/>
+				<DataGridTextColumn Header="Аэропорт отпр." Binding="{Binding DepartureAirport}" Width="140"/>
+				<DataGridTextColumn Header="Аэропорт приб." Binding="{Binding ArrivalAirport}" Width="140"/>
+				<DataGridTextColumn Header="Номер рейса" Binding="{Binding FlightNumber}" Width="100"/>
+				<DataGridTextColumn Header="Тип самолета" Binding="{Binding AircraftName}" Width="120"/>
+				<DataGridTextColumn Header="Цена эконом" Binding="{Binding EconomyPrice}" Width="110"/>
+				<DataGridTextColumn Header="Цена бизнес" Binding="{Binding BusinessPrice}" Width="110"/>
+				<DataGridTextColumn Header="Цена первый" Binding="{Binding FirstClassPrice}" Width="*"/>
+			</DataGrid.Columns>
+		</DataGrid>
+
+		<Border Grid.Row="3" 
+                Background="White" 
+                CornerRadius="5"
+                BorderBrush="#DDD" 
+                BorderThickness="1"
+                Padding="15"
+                Margin="0,20,0,0">
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<Button x:Name="btnEditSchedule" 
+                        Content="Редактировать рейс" 
+                        Style="{StaticResource PrimaryButton}"
+                        Click="BtnEditSchedule_Click"
+                        Margin="0,0,10,0"/>
+				<Button x:Name="btnToggleStatus" 
+                        Content="Отменить|Подтвердить" 
+                        Style="{StaticResource PrimaryButton}"
+                        Click="BtnToggleStatus_Click"/>
+			</StackPanel>
+		</Border>
+	</Grid>
+</Page>

@@ -1,0 +1,57 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="BrandBlue">#196AA6</Color>
+    <Color x:Key="BrandOrange">#F79420</Color>
+    <Color x:Key="DarkBlue">#064B66</Color>
+    <Color x:Key="LightCyan">#00A0BB</Color>
+    <Color x:Key="DarkGreen">#0D4F4C</Color>
+    <Color x:Key="DarkPurple">#132B4F</Color>
+
+    <SolidColorBrush x:Key="BrandBlueBrush" Color="{StaticResource BrandBlue}"/>
+    <SolidColorBrush x:Key="BrandOrangeBrush" Color="{StaticResource BrandOrange}"/>
+    <SolidColorBrush x:Key="DarkBlueBrush" Color="{StaticResource DarkBlue}"/>
+    <SolidColorBrush x:Key="LightCyanBrush" Color="{StaticResource LightCyan}"/>
+    <SolidColorBrush x:Key="DarkGreenBrush" Color="{StaticResource DarkGreen}"/>
+    <SolidColorBrush x:Key="DarkPurpleBrush" Color="{StaticResource DarkPurple}"/>
+
+    <FontFamily x:Key="PrimaryFont">TeX Gyre Adventor, Tw Cen MT, Verdana</FontFamily>
+    <FontFamily x:Key="SecondaryFont">Verdana, TeX Gyre Adventor, Tw Cen MT</FontFamily>
+
+    <Style x:Key="PrimaryButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource BrandBlueBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Padding" Value="15,8"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="MinWidth" Value="120"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource DarkBlueBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DangerButton" TargetType="Button">
+        <Setter Property="Background" Value="#E74C3C"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Padding" Value="15,8"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="MinWidth" Value="120"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#C0392B"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,166 @@
+﻿<Page x:Class="AMONIC.AmenitiesPurchase"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Дополнительные услуги"
+      Background="#F5F5F5">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" 
+                   Text="Покупка дополнительных услуг" 
+                   FontSize="22" 
+                   FontWeight="Bold"
+                   FontFamily="{StaticResource PrimaryFont}"
+                   Foreground="{StaticResource DarkBlueBrush}"
+                   Margin="0,0,0,20"/>
+
+        <Border Grid.Row="1" 
+                Background="White" 
+                CornerRadius="5"
+                BorderBrush="#DDD" 
+                BorderThickness="1"
+                Padding="15"
+                Margin="0,0,0,20">
+            <StackPanel>
+                <TextBlock Text="Введите номер бронирования (PNR):" FontFamily="{StaticResource PrimaryFont}" Margin="0,0,0,10"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="txtPNR" Width="150" MaxLength="6" FontFamily="{StaticResource SecondaryFont}" FontSize="14"/>
+                    <Button x:Name="btnSearch" Content="Найти" Style="{StaticResource PrimaryButton}" Click="BtnSearch_Click" Width="100" Margin="10,0,0,0"/>
+                </StackPanel>
+                <TextBlock x:Name="txtSearchError" Foreground="#E74C3C" Visibility="Collapsed" Margin="0,10,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="2" 
+                Background="White" 
+                CornerRadius="5"
+                BorderBrush="#DDD" 
+                BorderThickness="1"
+                Padding="15"
+                Margin="0,0,0,20"
+                Visibility="Collapsed"
+                x:Name="borderFlights">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Рейсы в бронировании:" FontWeight="Bold" FontFamily="{StaticResource PrimaryFont}" Margin="0,0,0,10"/>
+                <DataGrid x:Name="dgFlights" 
+                          Grid.Row="1"
+                          AutoGenerateColumns="False"
+                          SelectionMode="Single"
+                          IsReadOnly="True"
+                          RowBackground="White"
+                          FontFamily="{StaticResource SecondaryFont}"
+                          BorderBrush="#DDD"
+                          RowHeight="35"
+                          SelectionChanged="DgFlights_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Номер рейса" Binding="{Binding FlightNumber}" Width="120"/>
+                        <DataGridTextColumn Header="Дата" Binding="{Binding Date}" Width="100"/>
+                        <DataGridTextColumn Header="Откуда" Binding="{Binding FromAirport}" Width="100"/>
+                        <DataGridTextColumn Header="Куда" Binding="{Binding ToAirport}" Width="100"/>
+                        <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="100"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="3" 
+                Background="White" 
+                CornerRadius="5"
+                BorderBrush="#DDD" 
+                BorderThickness="1"
+                Padding="15"
+                Margin="0,0,0,20"
+                Visibility="Collapsed"
+                x:Name="borderPassenger">
+            <StackPanel>
+                <TextBlock Text="Информация о пассажире:" FontWeight="Bold" FontFamily="{StaticResource PrimaryFont}" Margin="0,0,0,10"/>
+                <TextBlock x:Name="txtPassengerInfo" FontFamily="{StaticResource SecondaryFont}" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="4" 
+                Background="White" 
+                CornerRadius="5"
+                BorderBrush="#DDD" 
+                BorderThickness="1"
+                Padding="15"
+                Margin="0,0,0,20"
+                Visibility="Collapsed"
+                x:Name="borderAmenities">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Доступные услуги:" FontWeight="Bold" FontFamily="{StaticResource PrimaryFont}" Margin="0,0,0,10"/>
+
+                <DataGrid x:Name="dgAmenities" 
+                          Grid.Row="1"
+                          AutoGenerateColumns="False"
+                          RowBackground="White"
+                          FontFamily="{StaticResource SecondaryFont}"
+                          BorderBrush="#DDD"
+                          RowHeight="35"
+                          Height="200">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Услуга" Binding="{Binding Service}" Width="200"/>
+                        <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="100"/>
+                        <DataGridCheckBoxColumn Header="Выбрать" Binding="{Binding IsSelected}" Width="80"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <Separator Grid.Row="2" Margin="0,15"/>
+
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Сумма услуг:" FontFamily="{StaticResource PrimaryFont}" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="txtSubtotal" Grid.Row="0" Grid.Column="1" FontFamily="{StaticResource SecondaryFont}" FontWeight="Bold" Foreground="{StaticResource BrandOrangeBrush}"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="НДС (5%):" FontFamily="{StaticResource PrimaryFont}" VerticalAlignment="Center" Margin="0,10,0,0"/>
+                    <TextBlock x:Name="txtTax" Grid.Row="1" Grid.Column="1" FontFamily="{StaticResource SecondaryFont}" Margin="0,10,0,0"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="ИТОГО:" FontFamily="{StaticResource PrimaryFont}" FontWeight="Bold" VerticalAlignment="Center" Margin="0,10,0,0"/>
+                    <TextBlock x:Name="txtTotal" Grid.Row="2" Grid.Column="1" FontFamily="{StaticResource SecondaryFont}" FontWeight="Bold" Foreground="{StaticResource BrandOrangeBrush}" FontSize="16" Margin="0,10,0,0"/>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="5" 
+                Background="White" 
+                CornerRadius="5"
+                BorderBrush="#DDD" 
+                BorderThickness="1"
+                Padding="15"
+                Visibility="Collapsed"
+                x:Name="borderButtons">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btnSave" Content="Сохранить" Style="{StaticResource PrimaryButton}" Click="BtnSave_Click" Width="120" Margin="0,0,10,0"/>
+                <Button x:Name="btnCancel" Content="Отмена" Style="{StaticResource DangerButton}" Click="BtnCancel_Click" Width="120"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

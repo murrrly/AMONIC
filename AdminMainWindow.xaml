@@ -1,0 +1,50 @@
+﻿<Window x:Class="AMONIC.AdminMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AMONIC Airlines. Окно администратора" 
+        Height="650" Width="1100"
+        MinHeight="650" MinWidth="1100"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F5F5">
+
+	<DockPanel>
+		<Border DockPanel.Dock="Top" Background="{StaticResource BrandBlueBrush}" Height="50">
+			<Grid>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0">
+					<TextBlock Text="AMONIC" Foreground="White" FontSize="22" FontWeight="Bold" FontFamily="{StaticResource PrimaryFont}"/>
+					<TextBlock Text=" AIRLINES" Foreground="{StaticResource BrandOrangeBrush}" FontSize="22" FontWeight="Bold" FontFamily="{StaticResource PrimaryFont}"/>
+				</StackPanel>
+
+				<Menu HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,20,0" Background="Transparent">
+					<Menu.Resources>
+						<Style TargetType="MenuItem">
+							<Setter Property="Foreground" Value="{StaticResource DarkBlueBrush}"/>
+							<Setter Property="FontFamily" Value="{StaticResource PrimaryFont}"/>
+						</Style>
+					</Menu.Resources>
+
+					<MenuItem FontSize="20" Header="Управление" Foreground="White" FontFamily="{StaticResource PrimaryFont}">
+						<MenuItem Header="Пользователи" x:Name="mnuUsers" Click="MnuUsers_Click"/>
+						<MenuItem Header="Расписание рейсов" x:Name="mnuSchedules" Click="MnuSchedules_Click"/>
+						<MenuItem Header="Импорт расписания" x:Name="mnuImport" Click="MnuImport_Click"/>
+						<Separator/>
+						<MenuItem Header="Выход" x:Name="mnuExit" Click="MnuExit_Click" Foreground="#E74C3C" FontWeight="Bold"/>
+					</MenuItem>
+
+					<MenuItem FontSize="20" Header="Отчёты" Foreground="White" FontFamily="{StaticResource PrimaryFont}">
+						<MenuItem Header="Опросы клиентов" x:Name="mnuReports" Click="MnuReports_Click"/>
+						<MenuItem Header="Импорт опросов" x:Name="mnuImportSurvey" Click="MnuImportSurvey_Click"/>
+					</MenuItem>
+
+					<MenuItem FontSize="20" Header="Сервисы" Foreground="White" FontFamily="{StaticResource PrimaryFont}">
+						<MenuItem Header="Дополнительные услуги" x:Name="mnuAmenities" Click="MnuAmenities_Click"/>
+						<MenuItem Header="Отчёт по услугам" x:Name="mnuAmenitiesReport" Click="MnuAmenitiesReport_Click"/>
+						<MenuItem Header="KPI Дашборд" x:Name="mnuKPI" Click="MnuKPI_Click"/>
+					</MenuItem>
+				</Menu>
+			</Grid>
+		</Border>
+
+		<Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+	</DockPanel>
+</Window>

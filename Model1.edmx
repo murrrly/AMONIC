@@ -1,0 +1,1256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище AMONICModel123" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Aircrafts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MakeModel" Type="nvarchar" MaxLength="10" />
+          <Property Name="TotalSeats" Type="int" Nullable="false" />
+          <Property Name="EconomySeats" Type="int" Nullable="false" />
+          <Property Name="BusinessSeats" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Airports">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryID" Type="int" Nullable="false" />
+          <Property Name="IATACode" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AirportsCountries">
+          <Key>
+            <PropertyRef Name="AirportID" />
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="AirportID" Type="int" Nullable="false" />
+          <Property Name="CountryID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Amenities">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Service" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AmenitiesCabinType">
+          <Key>
+            <PropertyRef Name="CabinTypeID" />
+            <PropertyRef Name="AmenityID" />
+          </Key>
+          <Property Name="CabinTypeID" Type="int" Nullable="false" />
+          <Property Name="AmenityID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AmenitiesTickets">
+          <Key>
+            <PropertyRef Name="AmenityID" />
+            <PropertyRef Name="TicketID" />
+          </Key>
+          <Property Name="AmenityID" Type="int" Nullable="false" />
+          <Property Name="TicketID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CabinTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Offices">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contact" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OfficesCountries">
+          <Key>
+            <PropertyRef Name="OfficeID" />
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="OfficeID" Type="int" Nullable="false" />
+          <Property Name="CountryID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Routes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartureAirportID" Type="int" Nullable="false" />
+          <Property Name="ArrivalAirportID" Type="int" Nullable="false" />
+          <Property Name="Distance" Type="int" Nullable="false" />
+          <Property Name="FlightTime" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Schedules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Time" Type="time" Precision="5" Nullable="false" />
+          <Property Name="AircraftID" Type="int" Nullable="false" />
+          <Property Name="RouteID" Type="int" Nullable="false" />
+          <Property Name="EconomyPrice" Type="money" Nullable="false" />
+          <Property Name="Confirmed" Type="bit" Nullable="false" />
+          <Property Name="FlightNumber" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="SurveyResponses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SurveyMonth" Type="date" Nullable="false" />
+          <Property Name="DepartureAirportID" Type="int" />
+          <Property Name="ArrivalAirportID" Type="int" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Gender" Type="nchar" MaxLength="1" />
+          <Property Name="CabinTypeID" Type="int" />
+          <Property Name="Q1" Type="tinyint" Nullable="false" />
+          <Property Name="Q2" Type="tinyint" Nullable="false" />
+          <Property Name="Q3" Type="tinyint" Nullable="false" />
+          <Property Name="Q4" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tickets">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ScheduleID" Type="int" Nullable="false" />
+          <Property Name="CabinTypeID" Type="int" Nullable="false" />
+          <Property Name="Firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lastname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="14" Nullable="false" />
+          <Property Name="PassportNumber" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="PassportCountryID" Type="int" Nullable="false" />
+          <Property Name="BookingReference" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Confirmed" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OfficeID" Type="int" />
+          <Property Name="Birthdate" Type="date" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="UserSessions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="LoginTime" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="LogoutTime" Type="datetime2" Precision="0" />
+          <Property Name="LogoutType" Type="nvarchar" MaxLength="50" />
+          <Property Name="CrashReason" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="UsersOffices">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="OfficeID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="OfficeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsersRoles">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AirportsCountries_Airports">
+          <End Role="Airports" Type="Self.Airports" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AirportsCountries" Type="Self.AirportsCountries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AirportsCountries">
+              <PropertyRef Name="AirportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AirportsCountries_Countries">
+          <End Role="Countries" Type="Self.Countries" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AirportsCountries" Type="Self.AirportsCountries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AirportsCountries">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AmenitiesTickets_Amenities">
+          <End Role="Amenities" Type="Self.Amenities" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AmenitiesTickets" Type="Self.AmenitiesTickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Amenities">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AmenitiesTickets">
+              <PropertyRef Name="AmenityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AmenitiesTickets_Tickets">
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AmenitiesTickets" Type="Self.AmenitiesTickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tickets">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AmenitiesTickets">
+              <PropertyRef Name="TicketID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OfficesCountries_Countries">
+          <End Role="Countries" Type="Self.Countries" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OfficesCountries" Type="Self.OfficesCountries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OfficesCountries">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OfficesCountries_Offices">
+          <End Role="Offices" Type="Self.Offices" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OfficesCountries" Type="Self.OfficesCountries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Offices">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OfficesCountries">
+              <PropertyRef Name="OfficeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Routes_Airports2">
+          <End Role="Airports" Type="Self.Airports" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Routes" Type="Self.Routes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Routes">
+              <PropertyRef Name="DepartureAirportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_AirCraft">
+          <End Role="Aircrafts" Type="Self.Aircrafts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aircrafts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Schedules">
+              <PropertyRef Name="AircraftID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Routes">
+          <End Role="Routes" Type="Self.Routes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Routes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Schedules">
+              <PropertyRef Name="RouteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyResponses_ArrivalAirport">
+          <End Role="Airports" Type="Self.Airports" Multiplicity="0..1" />
+          <End Role="SurveyResponses" Type="Self.SurveyResponses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SurveyResponses">
+              <PropertyRef Name="ArrivalAirportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyResponses_CabinTypes">
+          <End Role="CabinTypes" Type="Self.CabinTypes" Multiplicity="0..1" />
+          <End Role="SurveyResponses" Type="Self.SurveyResponses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CabinTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SurveyResponses">
+              <PropertyRef Name="CabinTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_Schedule">
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedules">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_TravelClass">
+          <End Role="CabinTypes" Type="Self.CabinTypes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CabinTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="CabinTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_User">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TravelClassAdditionalService_AdditionalService">
+          <End Role="Amenities" Type="Self.Amenities" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AmenitiesCabinType" Type="Self.AmenitiesCabinType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Amenities">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AmenitiesCabinType">
+              <PropertyRef Name="AmenityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TravelClassAdditionalService_TravelClass">
+          <End Role="CabinTypes" Type="Self.CabinTypes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AmenitiesCabinType" Type="Self.AmenitiesCabinType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CabinTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AmenitiesCabinType">
+              <PropertyRef Name="CabinTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSessions_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserSessions" Type="Self.UserSessions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserSessions">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersOffices_Offices">
+          <End Role="Offices" Type="Self.Offices" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UsersOffices" Type="Self.UsersOffices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Offices">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsersOffices">
+              <PropertyRef Name="OfficeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersOffices_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UsersOffices" Type="Self.UsersOffices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsersOffices">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersRoles_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UsersRoles" Type="Self.UsersRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsersRoles">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersRoles_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UsersRoles" Type="Self.UsersRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsersRoles">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище AMONICModel123Container">
+          <EntitySet Name="Aircrafts" EntityType="Self.Aircrafts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Airports" EntityType="Self.Airports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AirportsCountries" EntityType="Self.AirportsCountries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Amenities" EntityType="Self.Amenities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AmenitiesCabinType" EntityType="Self.AmenitiesCabinType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AmenitiesTickets" EntityType="Self.AmenitiesTickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CabinTypes" EntityType="Self.CabinTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Offices" EntityType="Self.Offices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OfficesCountries" EntityType="Self.OfficesCountries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Routes" EntityType="Self.Routes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SurveyResponses" EntityType="Self.SurveyResponses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSessions" EntityType="Self.UserSessions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersOffices" EntityType="Self.UsersOffices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersRoles" EntityType="Self.UsersRoles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AirportsCountries_Airports" Association="Self.FK_AirportsCountries_Airports">
+            <End Role="Airports" EntitySet="Airports" />
+            <End Role="AirportsCountries" EntitySet="AirportsCountries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AirportsCountries_Countries" Association="Self.FK_AirportsCountries_Countries">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="AirportsCountries" EntitySet="AirportsCountries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AmenitiesTickets_Amenities" Association="Self.FK_AmenitiesTickets_Amenities">
+            <End Role="Amenities" EntitySet="Amenities" />
+            <End Role="AmenitiesTickets" EntitySet="AmenitiesTickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AmenitiesTickets_Tickets" Association="Self.FK_AmenitiesTickets_Tickets">
+            <End Role="Tickets" EntitySet="Tickets" />
+            <End Role="AmenitiesTickets" EntitySet="AmenitiesTickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OfficesCountries_Countries" Association="Self.FK_OfficesCountries_Countries">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="OfficesCountries" EntitySet="OfficesCountries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OfficesCountries_Offices" Association="Self.FK_OfficesCountries_Offices">
+            <End Role="Offices" EntitySet="Offices" />
+            <End Role="OfficesCountries" EntitySet="OfficesCountries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Routes_Airports2" Association="Self.FK_Routes_Airports2">
+            <End Role="Airports" EntitySet="Airports" />
+            <End Role="Routes" EntitySet="Routes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_AirCraft" Association="Self.FK_Schedule_AirCraft">
+            <End Role="Aircrafts" EntitySet="Aircrafts" />
+            <End Role="Schedules" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Routes" Association="Self.FK_Schedule_Routes">
+            <End Role="Routes" EntitySet="Routes" />
+            <End Role="Schedules" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyResponses_ArrivalAirport" Association="Self.FK_SurveyResponses_ArrivalAirport">
+            <End Role="Airports" EntitySet="Airports" />
+            <End Role="SurveyResponses" EntitySet="SurveyResponses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyResponses_CabinTypes" Association="Self.FK_SurveyResponses_CabinTypes">
+            <End Role="CabinTypes" EntitySet="CabinTypes" />
+            <End Role="SurveyResponses" EntitySet="SurveyResponses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_Schedule" Association="Self.FK_Ticket_Schedule">
+            <End Role="Schedules" EntitySet="Schedules" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_TravelClass" Association="Self.FK_Ticket_TravelClass">
+            <End Role="CabinTypes" EntitySet="CabinTypes" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_User" Association="Self.FK_Ticket_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TravelClassAdditionalService_AdditionalService" Association="Self.FK_TravelClassAdditionalService_AdditionalService">
+            <End Role="Amenities" EntitySet="Amenities" />
+            <End Role="AmenitiesCabinType" EntitySet="AmenitiesCabinType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TravelClassAdditionalService_TravelClass" Association="Self.FK_TravelClassAdditionalService_TravelClass">
+            <End Role="CabinTypes" EntitySet="CabinTypes" />
+            <End Role="AmenitiesCabinType" EntitySet="AmenitiesCabinType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSessions_Users" Association="Self.FK_UserSessions_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserSessions" EntitySet="UserSessions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersOffices_Offices" Association="Self.FK_UsersOffices_Offices">
+            <End Role="Offices" EntitySet="Offices" />
+            <End Role="UsersOffices" EntitySet="UsersOffices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersOffices_Users" Association="Self.FK_UsersOffices_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UsersOffices" EntitySet="UsersOffices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersRoles_Roles" Association="Self.FK_UsersRoles_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UsersRoles" EntitySet="UsersRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersRoles_Users" Association="Self.FK_UsersRoles_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UsersRoles" EntitySet="UsersRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AMONICModel123" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Aircrafts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MakeModel" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="TotalSeats" Type="Int32" Nullable="false" />
+          <Property Name="EconomySeats" Type="Int32" Nullable="false" />
+          <Property Name="BusinessSeats" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedule_AirCraft" FromRole="Aircrafts" ToRole="Schedules" />
+        </EntityType>
+        <EntityType Name="Airports">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryID" Type="Int32" Nullable="false" />
+          <Property Name="IATACode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Routes" Relationship="Self.FK_Routes_Airports2" FromRole="Airports" ToRole="Routes" />
+          <NavigationProperty Name="SurveyResponses" Relationship="Self.FK_SurveyResponses_ArrivalAirport" FromRole="Airports" ToRole="SurveyResponses" />
+          <NavigationProperty Name="Countries" Relationship="Self.AirportsCountries" FromRole="Airports" ToRole="Countries" />
+        </EntityType>
+        <EntityType Name="Amenities">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Service" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="AmenitiesTickets" Relationship="Self.FK_AmenitiesTickets_Amenities" FromRole="Amenities" ToRole="AmenitiesTickets" />
+          <NavigationProperty Name="CabinTypes" Relationship="Self.AmenitiesCabinType" FromRole="Amenities" ToRole="CabinTypes" />
+        </EntityType>
+        <EntityType Name="AmenitiesTickets">
+          <Key>
+            <PropertyRef Name="AmenityID" />
+            <PropertyRef Name="TicketID" />
+          </Key>
+          <Property Name="AmenityID" Type="Int32" Nullable="false" />
+          <Property Name="TicketID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Amenities" Relationship="Self.FK_AmenitiesTickets_Amenities" FromRole="AmenitiesTickets" ToRole="Amenities" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_AmenitiesTickets_Tickets" FromRole="AmenitiesTickets" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="CabinTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SurveyResponses" Relationship="Self.FK_SurveyResponses_CabinTypes" FromRole="CabinTypes" ToRole="SurveyResponses" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_Ticket_TravelClass" FromRole="CabinTypes" ToRole="Tickets" />
+          <NavigationProperty Name="Amenities" Relationship="Self.AmenitiesCabinType" FromRole="CabinTypes" ToRole="Amenities" />
+        </EntityType>
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Airports" Relationship="Self.AirportsCountries" FromRole="Countries" ToRole="Airports" />
+          <NavigationProperty Name="Offices" Relationship="Self.OfficesCountries" FromRole="Countries" ToRole="Offices" />
+        </EntityType>
+        <EntityType Name="Offices">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contact" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Countries" Relationship="Self.OfficesCountries" FromRole="Offices" ToRole="Countries" />
+          <NavigationProperty Name="Users" Relationship="Self.UsersOffices" FromRole="Offices" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.UsersRoles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Routes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartureAirportID" Type="Int32" Nullable="false" />
+          <Property Name="ArrivalAirportID" Type="Int32" Nullable="false" />
+          <Property Name="Distance" Type="Int32" Nullable="false" />
+          <Property Name="FlightTime" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Airports" Relationship="Self.FK_Routes_Airports2" FromRole="Routes" ToRole="Airports" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedule_Routes" FromRole="Routes" ToRole="Schedules" />
+        </EntityType>
+        <EntityType Name="Schedules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Time" Type="Time" Nullable="false" Precision="5" />
+          <Property Name="AircraftID" Type="Int32" Nullable="false" />
+          <Property Name="RouteID" Type="Int32" Nullable="false" />
+          <Property Name="EconomyPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Confirmed" Type="Boolean" Nullable="false" />
+          <Property Name="FlightNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Aircrafts" Relationship="Self.FK_Schedule_AirCraft" FromRole="Schedules" ToRole="Aircrafts" />
+          <NavigationProperty Name="Routes" Relationship="Self.FK_Schedule_Routes" FromRole="Schedules" ToRole="Routes" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_Ticket_Schedule" FromRole="Schedules" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="SurveyResponses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SurveyMonth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DepartureAirportID" Type="Int32" />
+          <Property Name="ArrivalAirportID" Type="Int32" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="CabinTypeID" Type="Int32" />
+          <Property Name="Q1" Type="Byte" Nullable="false" />
+          <Property Name="Q2" Type="Byte" Nullable="false" />
+          <Property Name="Q3" Type="Byte" Nullable="false" />
+          <Property Name="Q4" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Airports" Relationship="Self.FK_SurveyResponses_ArrivalAirport" FromRole="SurveyResponses" ToRole="Airports" />
+          <NavigationProperty Name="CabinTypes" Relationship="Self.FK_SurveyResponses_CabinTypes" FromRole="SurveyResponses" ToRole="CabinTypes" />
+        </EntityType>
+        <EntityType Name="Tickets">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ScheduleID" Type="Int32" Nullable="false" />
+          <Property Name="CabinTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="14" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PassportNumber" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PassportCountryID" Type="Int32" Nullable="false" />
+          <Property Name="BookingReference" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Confirmed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AmenitiesTickets" Relationship="Self.FK_AmenitiesTickets_Tickets" FromRole="Tickets" ToRole="AmenitiesTickets" />
+          <NavigationProperty Name="CabinTypes" Relationship="Self.FK_Ticket_TravelClass" FromRole="Tickets" ToRole="CabinTypes" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK_Ticket_Schedule" FromRole="Tickets" ToRole="Schedules" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Ticket_User" FromRole="Tickets" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OfficeID" Type="Int32" />
+          <Property Name="Birthdate" Type="DateTime" Precision="0" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_Ticket_User" FromRole="Users" ToRole="Tickets" />
+          <NavigationProperty Name="UserSessions" Relationship="Self.FK_UserSessions_Users" FromRole="Users" ToRole="UserSessions" />
+          <NavigationProperty Name="Offices" Relationship="Self.UsersOffices" FromRole="Users" ToRole="Offices" />
+          <NavigationProperty Name="Roles" Relationship="Self.UsersRoles" FromRole="Users" ToRole="Roles" />
+        </EntityType>
+        <EntityType Name="UserSessions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="LoginTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LogoutTime" Type="DateTime" Precision="0" />
+          <Property Name="LogoutType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CrashReason" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_UserSessions_Users" FromRole="UserSessions" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_Schedule_AirCraft">
+          <End Role="Aircrafts" Type="Self.Aircrafts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aircrafts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Schedules">
+              <PropertyRef Name="AircraftID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Routes_Airports2">
+          <End Role="Airports" Type="Self.Airports" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Routes" Type="Self.Routes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Routes">
+              <PropertyRef Name="DepartureAirportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyResponses_ArrivalAirport">
+          <End Role="Airports" Type="Self.Airports" Multiplicity="0..1" />
+          <End Role="SurveyResponses" Type="Self.SurveyResponses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SurveyResponses">
+              <PropertyRef Name="ArrivalAirportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AmenitiesTickets_Amenities">
+          <End Role="Amenities" Type="Self.Amenities" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AmenitiesTickets" Type="Self.AmenitiesTickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Amenities">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AmenitiesTickets">
+              <PropertyRef Name="AmenityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AmenitiesTickets_Tickets">
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AmenitiesTickets" Type="Self.AmenitiesTickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tickets">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AmenitiesTickets">
+              <PropertyRef Name="TicketID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyResponses_CabinTypes">
+          <End Role="CabinTypes" Type="Self.CabinTypes" Multiplicity="0..1" />
+          <End Role="SurveyResponses" Type="Self.SurveyResponses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CabinTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SurveyResponses">
+              <PropertyRef Name="CabinTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_TravelClass">
+          <End Role="CabinTypes" Type="Self.CabinTypes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CabinTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="CabinTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Routes">
+          <End Role="Routes" Type="Self.Routes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Routes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Schedules">
+              <PropertyRef Name="RouteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_Schedule">
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedules">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_User">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSessions_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserSessions" Type="Self.UserSessions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserSessions">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AirportsCountries">
+          <End Role="Airports" Type="Self.Airports" Multiplicity="*" />
+          <End Role="Countries" Type="Self.Countries" Multiplicity="*" />
+        </Association>
+        <Association Name="AmenitiesCabinType">
+          <End Role="Amenities" Type="Self.Amenities" Multiplicity="*" />
+          <End Role="CabinTypes" Type="Self.CabinTypes" Multiplicity="*" />
+        </Association>
+        <Association Name="OfficesCountries">
+          <End Role="Countries" Type="Self.Countries" Multiplicity="*" />
+          <End Role="Offices" Type="Self.Offices" Multiplicity="*" />
+        </Association>
+        <Association Name="UsersOffices">
+          <End Role="Offices" Type="Self.Offices" Multiplicity="*" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+        </Association>
+        <Association Name="UsersRoles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="*" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="AMONICEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Aircrafts" EntityType="Self.Aircrafts" />
+          <EntitySet Name="Airports" EntityType="Self.Airports" />
+          <EntitySet Name="Amenities" EntityType="Self.Amenities" />
+          <EntitySet Name="AmenitiesTickets" EntityType="Self.AmenitiesTickets" />
+          <EntitySet Name="CabinTypes" EntityType="Self.CabinTypes" />
+          <EntitySet Name="Countries" EntityType="Self.Countries" />
+          <EntitySet Name="Offices" EntityType="Self.Offices" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="Routes" EntityType="Self.Routes" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedules" />
+          <EntitySet Name="SurveyResponses" EntityType="Self.SurveyResponses" />
+          <EntitySet Name="Tickets" EntityType="Self.Tickets" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="UserSessions" EntityType="Self.UserSessions" />
+          <AssociationSet Name="FK_Schedule_AirCraft" Association="Self.FK_Schedule_AirCraft">
+            <End Role="Aircrafts" EntitySet="Aircrafts" />
+            <End Role="Schedules" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Routes_Airports2" Association="Self.FK_Routes_Airports2">
+            <End Role="Airports" EntitySet="Airports" />
+            <End Role="Routes" EntitySet="Routes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyResponses_ArrivalAirport" Association="Self.FK_SurveyResponses_ArrivalAirport">
+            <End Role="Airports" EntitySet="Airports" />
+            <End Role="SurveyResponses" EntitySet="SurveyResponses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AmenitiesTickets_Amenities" Association="Self.FK_AmenitiesTickets_Amenities">
+            <End Role="Amenities" EntitySet="Amenities" />
+            <End Role="AmenitiesTickets" EntitySet="AmenitiesTickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AmenitiesTickets_Tickets" Association="Self.FK_AmenitiesTickets_Tickets">
+            <End Role="Tickets" EntitySet="Tickets" />
+            <End Role="AmenitiesTickets" EntitySet="AmenitiesTickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyResponses_CabinTypes" Association="Self.FK_SurveyResponses_CabinTypes">
+            <End Role="CabinTypes" EntitySet="CabinTypes" />
+            <End Role="SurveyResponses" EntitySet="SurveyResponses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_TravelClass" Association="Self.FK_Ticket_TravelClass">
+            <End Role="CabinTypes" EntitySet="CabinTypes" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Routes" Association="Self.FK_Schedule_Routes">
+            <End Role="Routes" EntitySet="Routes" />
+            <End Role="Schedules" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_Schedule" Association="Self.FK_Ticket_Schedule">
+            <End Role="Schedules" EntitySet="Schedules" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_User" Association="Self.FK_Ticket_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSessions_Users" Association="Self.FK_UserSessions_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserSessions" EntitySet="UserSessions" />
+          </AssociationSet>
+          <AssociationSet Name="AirportsCountries" Association="Self.AirportsCountries">
+            <End Role="Airports" EntitySet="Airports" />
+            <End Role="Countries" EntitySet="Countries" />
+          </AssociationSet>
+          <AssociationSet Name="AmenitiesCabinType" Association="Self.AmenitiesCabinType">
+            <End Role="Amenities" EntitySet="Amenities" />
+            <End Role="CabinTypes" EntitySet="CabinTypes" />
+          </AssociationSet>
+          <AssociationSet Name="OfficesCountries" Association="Self.OfficesCountries">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="Offices" EntitySet="Offices" />
+          </AssociationSet>
+          <AssociationSet Name="UsersOffices" Association="Self.UsersOffices">
+            <End Role="Offices" EntitySet="Offices" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="UsersRoles" Association="Self.UsersRoles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище AMONICModel123Container" CdmEntityContainer="AMONICEntities3">
+          <EntitySetMapping Name="Aircrafts">
+            <EntityTypeMapping TypeName="AMONICModel123.Aircrafts">
+              <MappingFragment StoreEntitySet="Aircrafts">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MakeModel" ColumnName="MakeModel" />
+                <ScalarProperty Name="TotalSeats" ColumnName="TotalSeats" />
+                <ScalarProperty Name="EconomySeats" ColumnName="EconomySeats" />
+                <ScalarProperty Name="BusinessSeats" ColumnName="BusinessSeats" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Airports">
+            <EntityTypeMapping TypeName="AMONICModel123.Airports">
+              <MappingFragment StoreEntitySet="Airports">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="IATACode" ColumnName="IATACode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Amenities">
+            <EntityTypeMapping TypeName="AMONICModel123.Amenities">
+              <MappingFragment StoreEntitySet="Amenities">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Service" ColumnName="Service" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AmenitiesTickets">
+            <EntityTypeMapping TypeName="AMONICModel123.AmenitiesTickets">
+              <MappingFragment StoreEntitySet="AmenitiesTickets">
+                <ScalarProperty Name="AmenityID" ColumnName="AmenityID" />
+                <ScalarProperty Name="TicketID" ColumnName="TicketID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CabinTypes">
+            <EntityTypeMapping TypeName="AMONICModel123.CabinTypes">
+              <MappingFragment StoreEntitySet="CabinTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="AMONICModel123.Countries">
+              <MappingFragment StoreEntitySet="Countries">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Offices">
+            <EntityTypeMapping TypeName="AMONICModel123.Offices">
+              <MappingFragment StoreEntitySet="Offices">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="AMONICModel123.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Routes">
+            <EntityTypeMapping TypeName="AMONICModel123.Routes">
+              <MappingFragment StoreEntitySet="Routes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DepartureAirportID" ColumnName="DepartureAirportID" />
+                <ScalarProperty Name="ArrivalAirportID" ColumnName="ArrivalAirportID" />
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="FlightTime" ColumnName="FlightTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="AMONICModel123.Schedules">
+              <MappingFragment StoreEntitySet="Schedules">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="AircraftID" ColumnName="AircraftID" />
+                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+                <ScalarProperty Name="EconomyPrice" ColumnName="EconomyPrice" />
+                <ScalarProperty Name="Confirmed" ColumnName="Confirmed" />
+                <ScalarProperty Name="FlightNumber" ColumnName="FlightNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SurveyResponses">
+            <EntityTypeMapping TypeName="AMONICModel123.SurveyResponses">
+              <MappingFragment StoreEntitySet="SurveyResponses">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SurveyMonth" ColumnName="SurveyMonth" />
+                <ScalarProperty Name="DepartureAirportID" ColumnName="DepartureAirportID" />
+                <ScalarProperty Name="ArrivalAirportID" ColumnName="ArrivalAirportID" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="CabinTypeID" ColumnName="CabinTypeID" />
+                <ScalarProperty Name="Q1" ColumnName="Q1" />
+                <ScalarProperty Name="Q2" ColumnName="Q2" />
+                <ScalarProperty Name="Q3" ColumnName="Q3" />
+                <ScalarProperty Name="Q4" ColumnName="Q4" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tickets">
+            <EntityTypeMapping TypeName="AMONICModel123.Tickets">
+              <MappingFragment StoreEntitySet="Tickets">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+                <ScalarProperty Name="CabinTypeID" ColumnName="CabinTypeID" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="PassportCountryID" ColumnName="PassportCountryID" />
+                <ScalarProperty Name="BookingReference" ColumnName="BookingReference" />
+                <ScalarProperty Name="Confirmed" ColumnName="Confirmed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="AMONICModel123.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="OfficeID" ColumnName="OfficeID" />
+                <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSessions">
+            <EntityTypeMapping TypeName="AMONICModel123.UserSessions">
+              <MappingFragment StoreEntitySet="UserSessions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
+                <ScalarProperty Name="LogoutTime" ColumnName="LogoutTime" />
+                <ScalarProperty Name="LogoutType" ColumnName="LogoutType" />
+                <ScalarProperty Name="CrashReason" ColumnName="CrashReason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AirportsCountries" TypeName="AMONICModel123.AirportsCountries" StoreEntitySet="AirportsCountries">
+            <EndProperty Name="Airports">
+              <ScalarProperty Name="ID" ColumnName="AirportID" />
+            </EndProperty>
+            <EndProperty Name="Countries">
+              <ScalarProperty Name="ID" ColumnName="CountryID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AmenitiesCabinType" TypeName="AMONICModel123.AmenitiesCabinType" StoreEntitySet="AmenitiesCabinType">
+            <EndProperty Name="Amenities">
+              <ScalarProperty Name="ID" ColumnName="AmenityID" />
+            </EndProperty>
+            <EndProperty Name="CabinTypes">
+              <ScalarProperty Name="ID" ColumnName="CabinTypeID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="OfficesCountries" TypeName="AMONICModel123.OfficesCountries" StoreEntitySet="OfficesCountries">
+            <EndProperty Name="Countries">
+              <ScalarProperty Name="ID" ColumnName="CountryID" />
+            </EndProperty>
+            <EndProperty Name="Offices">
+              <ScalarProperty Name="ID" ColumnName="OfficeID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UsersOffices" TypeName="AMONICModel123.UsersOffices" StoreEntitySet="UsersOffices">
+            <EndProperty Name="Offices">
+              <ScalarProperty Name="ID" ColumnName="OfficeID" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="ID" ColumnName="UserID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UsersRoles" TypeName="AMONICModel123.UsersRoles" StoreEntitySet="UsersRoles">
+            <EndProperty Name="Roles">
+              <ScalarProperty Name="ID" ColumnName="RoleID" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="ID" ColumnName="UserID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

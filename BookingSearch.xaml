@@ -1,0 +1,161 @@
+﻿<Page x:Class="AMONIC.BookingSearch"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Поиск и бронирование рейсов"
+      Background="#F5F5F5">
+
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<!-- Блок ФИЛЬТР -->
+			<RowDefinition Height="*"/>
+			<!-- Таблицы рейсов займут всё свободное место -->
+			<RowDefinition Height="Auto"/>
+			<!-- Пассажиры и кнопка Далее -->
+		</Grid.RowDefinitions>
+
+		<!-- Заголовок -->
+		<TextBlock Grid.Row="0" 
+                   Text="Поиск и бронирование рейсов" 
+                   FontSize="22" 
+                   FontWeight="Bold"
+                   FontFamily="{StaticResource PrimaryFont}"
+                   Foreground="{StaticResource DarkBlueBrush}"
+                   Margin="0,0,0,5"/>
+
+		<!-- Панель поиска (ФИЛЬТР) -->
+		<Border Grid.Row="1" 
+                Background="White" 
+                CornerRadius="5"
+                BorderBrush="#DDD" 
+                BorderThickness="1"
+                Padding="5"
+                Margin="0,0,0,5">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+				<!-- Пропорциональная сетка (Левая и правая часть равны) -->
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="130"/>
+					<ColumnDefinition Width="1*"/>
+					<ColumnDefinition Width="40"/>
+					<!-- Отступ между колонками -->
+					<ColumnDefinition Width="130"/>
+					<ColumnDefinition Width="1*"/>
+				</Grid.ColumnDefinitions>
+
+				<!-- Строка 0: Аэропорты -->
+				<TextBlock Grid.Row="0" Grid.Column="0" Text="Аэропорт отпр.:" VerticalAlignment="Center" FontFamily="{StaticResource PrimaryFont}"/>
+				<ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmbDepartureAirport" DisplayMemberPath="IATACode" SelectedValuePath="ID" Margin="0,5" FontFamily="{StaticResource SecondaryFont}"/>
+
+				<TextBlock Grid.Row="0" Grid.Column="3" Text="Аэропорт приб.:" VerticalAlignment="Center" FontFamily="{StaticResource PrimaryFont}"/>
+				<ComboBox Grid.Row="0" Grid.Column="4" x:Name="cmbArrivalAirport" DisplayMemberPath="IATACode" SelectedValuePath="ID" Margin="0,5" FontFamily="{StaticResource SecondaryFont}"/>
+
+				<!-- Строка 1: Тип билета и Класс -->
+				<TextBlock Grid.Row="1" Grid.Column="0" Text="Тип билета:" VerticalAlignment="Center" FontFamily="{StaticResource PrimaryFont}" Margin="0,10,0,0"/>
+				<ComboBox Grid.Row="1" Grid.Column="1" x:Name="cmbTripType" SelectedIndex="0" Margin="0,10,0,0" FontFamily="{StaticResource SecondaryFont}" SelectionChanged="CmbTripType_SelectionChanged">
+					<ComboBoxItem Content="Туда" Tag="OneWay"/>
+					<ComboBoxItem Content="Туда и обратно" Tag="RoundTrip"/>
+				</ComboBox>
+
+				<TextBlock Grid.Row="1" Grid.Column="3" Text="Класс:" VerticalAlignment="Center" FontFamily="{StaticResource PrimaryFont}" Margin="0,10,0,0"/>
+				<ComboBox Grid.Row="1" Grid.Column="4" x:Name="cmbCabinType" SelectedIndex="0" Margin="0,10,0,0" FontFamily="{StaticResource SecondaryFont}">
+					<ComboBoxItem Content="Эконом" Tag="Economy"/>
+					<ComboBoxItem Content="Бизнес" Tag="Business"/>
+					<ComboBoxItem Content="Первый" Tag="First"/>
+				</ComboBox>
+
+				<!-- Строка 2: Даты вылета и возврата -->
+				<TextBlock Grid.Row="2" Grid.Column="0" Text="Дата вылета:" VerticalAlignment="Center" FontFamily="{StaticResource PrimaryFont}" Margin="0,10,0,0"/>
+				<DatePicker Grid.Row="2" Grid.Column="1" x:Name="dpDepartureDate" Margin="0,10,0,0" FontFamily="{StaticResource SecondaryFont}"/>
+
+				<TextBlock Grid.Row="2" Grid.Column="3" x:Name="lblReturnDate" Text="Дата возврата:" VerticalAlignment="Center" FontFamily="{StaticResource PrimaryFont}" Margin="0,10,0,0"/>
+				<DatePicker Grid.Row="2" Grid.Column="4" x:Name="dpReturnDate" Margin="0,10,0,0" FontFamily="{StaticResource SecondaryFont}"/>
+
+				<!-- Строка 3: Галочка гибких дат -->
+				<CheckBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" x:Name="chkPlusMinus3Days" Content="Показать рейсы ±3 дня от указанной даты" Margin="0,5,0,0" FontFamily="{StaticResource SecondaryFont}"/>
+
+				<!-- Строка 4: Кнопки управления (По центру) -->
+				<StackPanel Grid.Row="4" Grid.ColumnSpan="5" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+					<Button x:Name="btnSearch" Content="Поиск" Style="{StaticResource PrimaryButton}" Click="BtnSearch_Click" Width="120" Height="32"/>
+					<Button x:Name="btnReset" Content="Сброс" Style="{StaticResource DangerButton}" Background="#D9534F" Foreground="White" Click="BtnClear_Click" Width="120" Height="32" Margin="15,0,0,0"/>
+				</StackPanel>
+			</Grid>
+		</Border>
+
+		<!-- Центральная область таблиц (Скроллится при малом разрешении экрана) -->
+		<ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Focusable="False">
+			<StackPanel>
+				<!-- Рейсы туда -->
+				<Border Background="White" CornerRadius="5" BorderBrush="#DDD" BorderThickness="1" Padding="15" Margin="0,0,0,10">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+						<TextBlock Text="Рейсы туда" FontSize="14" FontWeight="Bold" FontFamily="{StaticResource PrimaryFont}" Margin="0,0,0,10" Foreground="{StaticResource DarkBlueBrush}"/>
+						<DataGrid x:Name="dgOutboundFlights" Grid.Row="1" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" RowBackground="White" FontFamily="{StaticResource SecondaryFont}" BorderBrush="#DDD" RowHeight="35" SelectionChanged="DgOutboundFlights_SelectionChanged">
+							<DataGrid.Columns>
+								<DataGridTextColumn Header="Откуда" Binding="{Binding FromAirport}" Width="90"/>
+								<DataGridTextColumn Header="Куда" Binding="{Binding ToAirport}" Width="90"/>
+								<DataGridTextColumn Header="Дата" Binding="{Binding Date}" Width="100"/>
+								<DataGridTextColumn Header="Время" Binding="{Binding Time}" Width="80"/>
+								<DataGridTextColumn Header="Номер рейса" Binding="{Binding FlightNumber}" Width="110"/>
+								<DataGridTextColumn Header="Время в пути" Binding="{Binding TotalTravelTime}" Width="110"/>
+								<DataGridTextColumn Header="Пересадки" Binding="{Binding NumberOfStops}" Width="90"/>
+								<DataGridTextColumn Header="Цена ($)" Binding="{Binding Price}" Width="*"/>
+							</DataGrid.Columns>
+						</DataGrid>
+					</Grid>
+				</Border>
+
+				<!-- Рейсы обратно -->
+				<Border x:Name="borderReturn" Background="White" CornerRadius="5" BorderBrush="#DDD" BorderThickness="1" Padding="15" Margin="0,0,0,10">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+						<TextBlock Text="Рейсы обратно" FontSize="14" FontWeight="Bold" FontFamily="{StaticResource PrimaryFont}" Margin="0,0,0,10" Foreground="{StaticResource DarkBlueBrush}"/>
+						<DataGrid x:Name="dgReturnFlights" Grid.Row="1" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" RowBackground="White" FontFamily="{StaticResource SecondaryFont}" BorderBrush="#DDD" RowHeight="35" SelectionChanged="DgReturnFlights_SelectionChanged">
+							<DataGrid.Columns>
+								<DataGridTextColumn Header="Откуда" Binding="{Binding FromAirport}" Width="90"/>
+								<DataGridTextColumn Header="Куда" Binding="{Binding ToAirport}" Width="90"/>
+								<DataGridTextColumn Header="Дата" Binding="{Binding Date}" Width="100"/>
+								<DataGridTextColumn Header="Время" Binding="{Binding Time}" Width="80"/>
+								<DataGridTextColumn Header="Номер рейса" Binding="{Binding FlightNumber}" Width="110"/>
+								<DataGridTextColumn Header="Время в пути" Binding="{Binding TotalTravelTime}" Width="110"/>
+								<DataGridTextColumn Header="Пересадки" Binding="{Binding NumberOfStops}" Width="90"/>
+								<DataGridTextColumn Header="Цена ($)" Binding="{Binding Price}" Width="*"/>
+							</DataGrid.Columns>
+						</DataGrid>
+					</Grid>
+				</Border>
+			</StackPanel>
+		</ScrollViewer>
+
+		<!-- Нижняя панель количества пассажиров и перехода к бронированию -->
+		<Border Grid.Row="3" Background="White" CornerRadius="5" BorderBrush="#DDD" BorderThickness="1" Padding="5" Margin="0,0,0,0">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+
+				<TextBlock Grid.Column="0" Text="Количество пассажиров:" VerticalAlignment="Center" FontFamily="{StaticResource PrimaryFont}" Margin="0,0,10,0"/>
+				<TextBox Grid.Column="1" x:Name="txtPassengerCount" Text="1" Width="60" Height="28" TextAlignment="Center" VerticalContentAlignment="Center" FontFamily="{StaticResource SecondaryFont}"/>
+
+				<Button Grid.Column="3" x:Name="btnProceed" Content="Оформить бронирование →" Style="{StaticResource PrimaryButton}" Click="BtnProceed_Click" Width="240" Height="32" IsEnabled="False"/>
+			</Grid>
+		</Border>
+	</Grid>
+</Page>
